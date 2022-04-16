@@ -41,6 +41,7 @@ public class LambdaQU {
         User user=new User();
         int update = userMapper.update(user, lambdaUpdateWrapper);
         System.out.println(update);
+        System.out.println("github");
     }
 
 }
