@@ -1,5 +1,6 @@
 package com.bjpowernode;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.bjpowernode.dao.UserMapper;
 import com.bjpowernode.vo.User;
@@ -17,7 +18,7 @@ public class MybatisWarpper {
     private UserMapper userMapper;
 
     @Test
-    public void test01(){
+    public void test01() {
         //查询用户名包含a，年龄在20到30之间，并且邮箱不为null的用户信息
         //SELECT id,username AS name,age,email,is_deleted FROM t_user WHERE
         //is_deleted=0 AND (username LIKE ? AND age BETWEEN ? AND ? AND email IS NOT NULL)
@@ -28,18 +29,19 @@ public class MybatisWarpper {
         List<User> list = userMapper.selectList(queryWrapper);
         list.forEach(System.out::println);
     }
+
     @Test
     public void test02() {
         //按年龄降序查询用户，如果年龄相同则按id升序排列
         QueryWrapper<User> queryWrapper = new QueryWrapper<>();
         queryWrapper.orderByDesc("age")
-                    .orderByAsc("id");
+                .orderByAsc("id");
         List<User> list = userMapper.selectList(queryWrapper);
         list.forEach(System.out::println);
     }
 
     @Test
-    public void test03(){
+    public void test03() {
         //删除email为空的用户
         //DELETE FROM t_user WHERE (email IS NULL)
         QueryWrapper<User> queryWrapper = new QueryWrapper<>();
@@ -65,6 +67,7 @@ public class MybatisWarpper {
         int result = userMapper.update(user, queryWrapper);
         System.out.println("受影响的行数：" + result);
     }
+
     @Test
     public void testLambad04() {
         QueryWrapper<User> queryWrapper = new QueryWrapper<>();
@@ -79,6 +82,7 @@ public class MybatisWarpper {
         int result = userMapper.update(user, queryWrapper);
         System.out.println("受影响的行数：" + result);
     }
+
     @Test
     public void test05() {
         //查询用户信息的username和age字段
@@ -88,7 +92,9 @@ public class MybatisWarpper {
         //selectMaps()返回Map集合列表，通常配合select()使用，避免User对象中没有被查询到的列值为null
         List<Map<String, Object>> maps = userMapper.selectMaps(queryWrapper);
         maps.forEach(System.out::println);
-    }@Test
+    }
+
+    @Test
     public void test06() {
         //查询id小于等于3的用户信息
         //SELECT id,username AS name,age,email,is_deleted FROM t_user WHERE (id IN(select id from t_user where id <= 3))
