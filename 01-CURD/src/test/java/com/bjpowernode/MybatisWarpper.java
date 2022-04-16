@@ -103,6 +103,7 @@ public class MybatisWarpper {
         List<User> list = userMapper.selectList(queryWrapper);
         list.forEach(System.out::println);
     }
+
     //业务逻辑
     @Test
     public void test08() {
@@ -112,13 +113,13 @@ public class MybatisWarpper {
         Integer ageEnd = 24;
         QueryWrapper<User> queryWrapper = new QueryWrapper<>();
         //StringUtils.isNotBlank()判断某字符串是否不为空且长度不为0且不由空白符(whitespace)构成
-        if(StringUtils.isNotBlank(username)){
-            queryWrapper.like("username","a");
+        if (StringUtils.isNotBlank(username)) {
+            queryWrapper.like("username", "a");
         }
-        if(ageBegin != null){
+        if (ageBegin != null) {
             queryWrapper.ge("age", ageBegin);
         }
-        if(ageEnd != null){
+        if (ageEnd != null) {
             queryWrapper.le("age", ageEnd);
         }
         //SELECT id,username AS name,age,email,is_deleted FROM t_user WHERE (age >=? AND age <= ?)
